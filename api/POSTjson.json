@@ -1,0 +1,16 @@
+{
+    "breedName": "ervergerg",
+    "image": "no image :(",
+    "height": "3 - 6",
+    "weight": "3 - 6",
+    "lifeExpectancy": "3 - 6",
+    "temperaments": [
+      "active",
+      "adventurous",
+      "curious",
+      "fun-loving",
+      "playful",
+      "stubborn"
+    ],
+    "createdInFront": "true"
+}

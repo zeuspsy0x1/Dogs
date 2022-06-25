@@ -1,0 +1,33 @@
+.LandingPage {
+	text-align: center;
+	background-image: url('https://www.wallpapersun.com/wp-content/uploads/2021/07/Crysis-Wallpapersun-1.jpg');
+	position: fixed;
+	min-width: 100%;
+	min-height: 100%;
+	background-size: auto;
+	background-position: center;
+}
+
+.Enter {
+	font-size: 60px;
+	font-weight: bolder;
+	color: rgb(178, 25, 25);
+	text-shadow: 0 0 10px rgb(98, 7, 7);
+	text-transform: uppercase;
+	letter-spacing: 5px;
+	margin-top: 700px;
+	margin-right: 1200px;
+	background-color: rgb(39, 39, 39);
+	border-radius: 30px;
+	padding: 10px;
+	box-shadow: 0 0 100px rgb(174, 28, 28);
+	border: 3px solid rgb(98, 7, 7);
+	cursor: pointer;
+}
+
+.Enter:active {
+	transform: scale3d(0.97, 0.97, 0.97);
+	/* Scaling button to 0.98 to its original size */
+	box-shadow: 0 0 100px rgb(255, 0, 0);
+	/* Lowering the shadow */
+}

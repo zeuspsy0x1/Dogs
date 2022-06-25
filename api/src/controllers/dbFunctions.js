@@ -40,32 +40,97 @@ const getTemperamentsAndSendThemToDb = async () => {
 	}
 }
 
-const postBreedToDb = async (breedObject) => {
+const getBreedsFromDb = async () => {
 	try {
-		const { name, temperament, image, weight, lifeExpectancy } = recipeObject
-		const recipe = {
-			title: title,
-			summary: summary,
-			healthScore: healthScore,
-			image: image,
-			steps: steps,
-			created: created,
-		}
-		//console.log(recipe);
+		let breeds = await Breed.findAll({
+			include: [
+				{
+					model: Temperament,
+					as: 'temperaments',
+					attributes: ['name'],
+				},
+			],
+		})
+		//console.log(breeds.map((b) => b.dataValues))
+		let mappedDbBreeds = breeds.map((b) => {
+			return {
+				image: b.dataValues.image ? b.dataValues.image : 'no image',
+				name: b.dataValues.breedName ? b.dataValues.breedName : 'no name',
+				temperaments: b.dataValues.temperaments
+					? b.dataValues.temperaments.map((t) => t.dataValues.name)
+					: 'no temperaments',
+				weight: b.dataValues.weight ? b.dataValues.weight : 'no weight',
+			}
+		})
 
-		let breedInDb = await Breed.findOrCreate({ where: { name: breed } })
-		let recipeAndDietRelationship = []
-		let createRecipe = await Recipe.create(recipe)
-		for (let i = 0; i < recipeDiets.length; i++) {
-			//console.log(vApiGenres[i]);
-			recipeAndDietRelationship[i] = await createRecipe.addDiet(recipeDiets[i])
-		}
-		return 'Recipe and Diet relationship created'
+		return mappedDbBreeds !== undefined ? [mappedDbBreeds] : []
 	} catch (error) {
-		console.log('an error occurred when trying to post the breed to db' + error)
+		console.log('an error occurred when trying to fetch all Breeds from db' + error)
 	}
 }
+//getBreedsFromDb()
+
+const findBreedInDb = async (name) => {
+	try {
+		let breedInDb = await Breed.findOne({
+			where: { breedName: name },
+			include: [
+				{
+					model: Temperament,
+					as: 'temperaments',
+					attributes: ['name'],
+				},
+			],
+		})
+
+		let breed = breedInDb.dataValues
+		console.log(breed)
+
+		let breedObj = {
+			image: breed.image.url !== undefined ? breed.image.url : 'no image :(',
+			name: breed.breedName ? breed.breedName : 'no name :(',
+			temperaments: breed.temperaments ? breed.temperaments.map((t) => t.name) : 'no temperament :(',
+			weight: breed.weight ? breed.weight : 'no weight :(',
+		}
+		return breedObj ? [breedObj] : []
+	} catch (error) {
+		console.log('an error occurred when trying to find the breed in db' + error)
+	}
+}
+
+const findBreedByIdInDb = async (id) => {
+	try {
+		let breedInDb = await Breed.findOne({
+			where: { id: id },
+			include: [
+				{
+					model: Temperament,
+					as: 'temperaments',
+					attributes: ['name'],
+				},
+			],
+		})
+
+		let breed = breedInDb.dataValues
+		//console.log(breed)
+
+		let breedObj = {
+			image: breed.image.url !== undefined ? breed.image.url : 'no image :(',
+			name: breed.breedName ? breed.breedName : 'no name :(',
+			temperaments: breed.temperaments ? breed.temperaments.map((t) => t.name) : 'no temperament :(',
+			weight: breed.weight ? breed.weight : 'no weight :(',
+			height: breed.height ? breed.height : 'no height :(',
+			lifeExpectancy: breed.lifeExpectancy ? breed.lifeExpectancy : 'no life expectancy data :(',
+		}
+		return breedObj ? [breedObj] : []
+	} catch (error) {
+		console.log('an error occurred when trying to find the breed in db' + error)
+	}
+}
+
 module.exports = {
 	getTemperamentsAndSendThemToDb,
-	postBreedToDb,
+	getBreedsFromDb,
+	findBreedInDb,
+	findBreedByIdInDb,
 }
