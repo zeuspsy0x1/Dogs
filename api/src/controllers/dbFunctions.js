@@ -54,12 +54,13 @@ const getBreedsFromDb = async () => {
 		//console.log(breeds.map((b) => b.dataValues))
 		let mappedDbBreeds = breeds.map((b) => {
 			return {
-				image: b.dataValues.image ? b.dataValues.image : 'no image',
+				id: b.dataValues.id ? b.dataValues.id : Math.random(),
+				image: b.dataValues.image ? b.dataValues.image : 'https://i.ibb.co/SVX03GV/pom404.png',
 				name: b.dataValues.breedName ? b.dataValues.breedName : 'no name',
 				temperaments: b.dataValues.temperaments
 					? b.dataValues.temperaments.map((t) => t.dataValues.name)
 					: 'no temperaments',
-				weight: b.dataValues.weight ? b.dataValues.weight : 'no weight',
+				weight: b.dataValues.weight ? b.dataValues.weight : '0',
 			}
 		})
 
@@ -68,9 +69,47 @@ const getBreedsFromDb = async () => {
 		console.log('an error occurred when trying to fetch all Breeds from db' + error)
 	}
 }
-//getBreedsFromDb()
 
-const findBreedInDb = async (name) => {
+const findBreedByNameInDb = async (name) => {
+	try {
+		let breeds = await Breed.findAll({
+			include: [
+				{
+					model: Temperament,
+					as: 'temperaments',
+					attributes: ['name'],
+				},
+			],
+		})
+		//console.log('breeds   ' + breeds[0].dataValues.breedName)
+
+		let filteredByName = breeds.filter(
+			(b) => b.dataValues.breedName?.toLowerCase().includes(name.toLowerCase()) === true
+		)
+		//console.log('filtered   ' + filteredByName)
+		if (filteredByName === undefined || filteredByName.length === 0) {
+			return []
+		}
+		let mappedDbBreeds = filteredByName.map((b) => {
+			return {
+				id: b.dataValues.id ? b.dataValues.id : Math.random(),
+				image: b.dataValues.image ? b.dataValues.image : 'https://i.ibb.co/SVX03GV/pom404.png',
+				name: b.dataValues.breedName ? b.dataValues.breedName : 'no name',
+				temperaments: b.dataValues.temperaments
+					? b.dataValues.temperaments.map((t) => t.dataValues.name)
+					: 'no temperaments',
+				weight: b.dataValues.weight ? b.dataValues.weight : '0',
+			}
+		})
+
+		return mappedDbBreeds !== undefined ? [mappedDbBreeds] : []
+	} catch (error) {
+		console.log('an error occurred when trying to fetch Breeds BY NAME from db' + error)
+	}
+}
+//getBreedsFromDb()
+//NO LA NECESITO, MEJOR ME TRAIGO TODO LO DE LA DB Y LO FILTRO A VER SI CONTIENEN EL NOMBRE QUE LE PASE POR LA URL
+/* const findBreedInDb = async (name) => {
 	try {
 		let breedInDb = await Breed.findOne({
 			where: { breedName: name },
@@ -87,7 +126,8 @@ const findBreedInDb = async (name) => {
 		console.log(breed)
 
 		let breedObj = {
-			image: breed.image.url !== undefined ? breed.image.url : 'no image :(',
+			id: breed.id ? breed.id : Math.random(),
+			image: breed.image.url !== undefined ? breed.image.url : 'https://i.ibb.co/SVX03GV/pom404.png',
 			name: breed.breedName ? breed.breedName : 'no name :(',
 			temperaments: breed.temperaments ? breed.temperaments.map((t) => t.name) : 'no temperament :(',
 			weight: breed.weight ? breed.weight : 'no weight :(',
@@ -96,7 +136,7 @@ const findBreedInDb = async (name) => {
 	} catch (error) {
 		console.log('an error occurred when trying to find the breed in db' + error)
 	}
-}
+} */
 
 const findBreedByIdInDb = async (id) => {
 	try {
@@ -112,14 +152,14 @@ const findBreedByIdInDb = async (id) => {
 		})
 
 		let breed = breedInDb.dataValues
-		//console.log(breed)
+		console.log('ESSSSSSSSTEEEEEEEEEEE' + breed)
 
 		let breedObj = {
-			image: breed.image.url !== undefined ? breed.image.url : 'no image :(',
+			image: breed.image ? breed.image : 'https://i.ibb.co/SVX03GV/pom404.png',
 			name: breed.breedName ? breed.breedName : 'no name :(',
 			temperaments: breed.temperaments ? breed.temperaments.map((t) => t.name) : 'no temperament :(',
-			weight: breed.weight ? breed.weight : 'no weight :(',
-			height: breed.height ? breed.height : 'no height :(',
+			weight: breed.weight ? breed.weight : '0',
+			height: breed.height ? breed.height : '0',
 			lifeExpectancy: breed.lifeExpectancy ? breed.lifeExpectancy : 'no life expectancy data :(',
 		}
 		return breedObj ? [breedObj] : []
@@ -131,6 +171,6 @@ const findBreedByIdInDb = async (id) => {
 module.exports = {
 	getTemperamentsAndSendThemToDb,
 	getBreedsFromDb,
-	findBreedInDb,
+	findBreedByNameInDb,
 	findBreedByIdInDb,
 }

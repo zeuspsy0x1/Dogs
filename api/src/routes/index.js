@@ -1,7 +1,7 @@
 const { Router } = require('express')
 const { Breed, Temperament } = require('../db')
 const { getBreedsByName, getBreedsById, getBreeds } = require('../controllers/apiFunctions')
-const { getBreedsFromDb, findBreedInDb, findBreedByIdInDb } = require('../controllers/dbFunctions')
+const { getBreedsFromDb, findBreedByNameInDb, findBreedByIdInDb } = require('../controllers/dbFunctions')
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 const router = Router()
@@ -30,7 +30,7 @@ router.get('/breeds', async function (req, res) {
 router.get('/breeds/name?', async function (req, res) {
 	const { name } = req.query
 	let response = await getBreedsByName(name)
-	let dbResponse = await findBreedInDb(name)
+	let dbResponse = await findBreedByNameInDb(name)
 
 	if (dbResponse === undefined) {
 		// ESTO ES PORQUE LA getBreedsByName() ME DEVUELVE UNDEFINDED :( ???
@@ -40,11 +40,16 @@ router.get('/breeds/name?', async function (req, res) {
 		// ESTO ES PORQUE LA findBreedInDb() ME DEVUELVE UNDEFINDED :( ???
 		response = []
 	}
-	//console.log(response)
-	//console.log(dbResponse)
+	//console.log('RESPONSE ===' + response)
+	//console.log('DBRESPONSE ===' + dbResponse)
+	if (response.length >= 1 && dbResponse.length >= 1) {
+		const concatenationOfDbAndApi = [...dbResponse[0], ...response[0]]
+		return res.status(200).json(concatenationOfDbAndApi)
+	}
+
 	if (response.length >= 1 && dbResponse.length === 0) {
 		let ApiData = [...response]
-		return res.status(200).json(ApiData)
+		return res.status(200).json(ApiData[0])
 	}
 	if (response.length === 0 && dbResponse.length >= 1) {
 		let dbData = [...dbResponse]
@@ -73,11 +78,11 @@ router.get('/breeds/:id', async function (req, res) {
 		dbResponse = await findBreedByIdInDb(id)
 	}
 
-	if (Array.isArray(response) && response.length > 0) {
-		return res.status(200).json(response)
+	if (response.length > 0) {
+		return res.status(200).json(response[0] ? response[0] : {})
 	}
-	if (Array.isArray(dbResponse) && dbResponse.length > 0) {
-		return res.status(200).json(dbResponse)
+	if (dbResponse.length > 0) {
+		return res.status(200).json(dbResponse[0] ? dbResponse[0] : {})
 	}
 
 	if (true) {
@@ -98,11 +103,11 @@ router.get('/temperaments', async function (req, res) {
 router.post('/create', async function (req, res) {
 	const { breedName, temperaments, image, weight, height, lifeExpectancy, createdInFront } = req.body
 
-	let flag = await Breed.findOne({ where: { breedName: breedName } })
+	let flag = await Breed.findOne({ where: { breedName: breedName || 'name was undefined' } })
 	//console.log('flag', flag)
 
 	let breedToCreate = {
-		breedName: breedName,
+		breedName: breedName || 'name was undefined',
 		image: image,
 		height: height,
 		weight: weight,

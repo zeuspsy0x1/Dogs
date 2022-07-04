@@ -3,16 +3,16 @@ import React, { Fragment } from 'react'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
-import { getAllBreeds, getByName, getByID, getTemperaments } from '../../redux/actions'
+import { getTemperaments } from '../../redux/actions'
 
 function CreateVideogame() {
 	const dispatch = useDispatch()
 	const [breedName, setBreedName] = useState('')
 	const [image, setImage] = useState('')
-	const [minHeight, setMinHeight] = useState(0)
-	const [minWeight, setMinWeight] = useState(0)
-	const [maxHeight, setMaxHeight] = useState(0)
-	const [maxWeight, setMaxWeight] = useState(0)
+	const [minheight, setMinheight] = useState(0)
+	const [minweight, setMinweight] = useState(0)
+	const [maxheight, setMaxheight] = useState(0)
+	const [maxweight, setMaxweight] = useState(0)
 	const [minLifeExpectancy, setMinLifeExpectancy] = useState(0)
 	const [maxLifeExpectancy, setMaxLifeExpectancy] = useState(0)
 	const [temperaments, setTemperaments] = useState([])
@@ -42,45 +42,46 @@ function CreateVideogame() {
 
 	//VALIDACIONES QUE SE RENDERIZAN EN EL FORM
 	const validationName = (name) => {
-		return name.length > 2 && name.length < 20 ? (
-			<div className='correctInput'>Name length is ok</div>
+		//OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOH
+		return checkForSpecialChars(name) === false ? (
+			<div className='correctInput'>Name looks ok</div>
 		) : (
-			<div className='error'>Name is too short or too long</div>
+			<div className='error'>Name doesnt look like a real name</div>
 		)
 	}
 
 	const validationImage = (image) => {
-		return image.length > 20 ? (
-			<div className='correctInput'>Image link is valid</div>
+		return isImage(image) === true ? (
+			<div className='correctInput'>Image link is ok.</div>
 		) : (
-			<div className='error'>Image link is too short</div>
+			<div className='error'>Image link doesnt have an image url.</div>
 		)
 	}
 
-	const validationHeightMin = () => {
-		return minHeight > 0 ? (
+	const validationheightMin = () => {
+		return minheight > 0 ? (
 			<div className='correctInput'>This one is ok</div>
 		) : (
 			<div className='error'>This should be a number greater than 0</div>
 		)
 	}
-	const validationHeightMax = () => {
-		return maxHeight > 0 ? (
+	const validationheightMax = () => {
+		return maxheight > 0 ? (
 			<div className='correctInput'>This one is ok</div>
 		) : (
 			<div className='error'>This should be a number greater than 0</div>
 		)
 	}
 
-	const validationWeightMin = () => {
-		return minWeight > 0 ? (
+	const validationweightMin = () => {
+		return minweight > 0 ? (
 			<div className='correctInput'>This one is ok</div>
 		) : (
 			<div className='error'>This should be a number greater than 0</div>
 		)
 	}
-	const validationWeightMax = () => {
-		return maxWeight > 0 ? (
+	const validationweightMax = () => {
+		return maxweight > 0 ? (
 			<div className='correctInput'>This one is ok</div>
 		) : (
 			<div className='error'>This should be a number greater than 0</div>
@@ -104,25 +105,35 @@ function CreateVideogame() {
 	}
 
 	//VALIDACIONES AL ENVIAR INPUT
+	function checkForSpecialChars(str) {
+		const specialChars = /[`!@1234567890#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/
+		return specialChars.test(str)
+	}
+	function isImage(url) {
+		return /^https?:\/\/.+\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url)
+	}
+
 	const validateInputsThenSubmitVideogame = async (e) => {
 		e.preventDefault()
 
 		if (
-			breedName !== '' &&
-			image !== '' &&
-			minHeight !== 0 &&
-			minWeight !== 0 &&
-			maxHeight !== 0 &&
-			maxWeight !== 0 &&
+			checkForSpecialChars(breedName) === false &&
+			breedName.length > 1 &&
+			isImage(image) === true &&
+			image.length > 13 &&
+			minheight !== 0 &&
+			minweight !== 0 &&
+			maxheight !== 0 &&
+			maxweight !== 0 &&
 			minLifeExpectancy !== 0 &&
 			maxLifeExpectancy !== 0
 		) {
 			let newBreed = {
-				breedName: breedName,
-				image: image,
-				height: `${minHeight} - ${maxHeight}`,
-				weight: `${minWeight} - ${maxWeight}`,
-				lifeExpectancy: `${minLifeExpectancy} - ${maxLifeExpectancy} years`,
+				breedName: breedName.toLowerCase(),
+				image: image.length > 13 ? image : 'https://i.ibb.co/SVX03GV/pom404.png',
+				height: `${minheight} - ${maxheight}`,
+				weight: `${minweight} - ${maxweight}`,
+				lifeExpectancy: `${minLifeExpectancy} - ${maxLifeExpectancy}`,
 				temperaments: temperaments,
 				createdInFront: true,
 			}
@@ -139,7 +150,7 @@ function CreateVideogame() {
 				)
 			}
 		} else {
-			alert('Please fill all the inputs')
+			alert('Please fill all the inputs with correct data')
 		}
 	}
 
@@ -157,43 +168,42 @@ function CreateVideogame() {
 
 				<h4>Image link</h4>
 				<input
-					type={'link'}
 					onChange={(e) => {
 						setImage(e.target.value)
 					}}></input>
 				{validationImage(image)}
 
-				<h4>Minimum Height in cm</h4>
+				<h4>Minimum height in cm</h4>
 				<input
 					type='number'
 					onChange={(e) => {
-						setMinHeight(e.target.value)
+						setMinheight(e.target.value)
 					}}></input>
-				{validationHeightMin(minHeight)}
+				{validationheightMin(minheight)}
 
-				<h4>Maximum Height in cm</h4>
+				<h4>Maximum height in cm</h4>
 				<input
 					type='number'
 					onChange={(e) => {
-						setMaxHeight(e.target.value)
+						setMaxheight(e.target.value)
 					}}></input>
-				<div>{validationHeightMax(maxHeight)}</div>
+				<div>{validationheightMax(maxheight)}</div>
 
-				<h4>Minimum Weight in kg</h4>
+				<h4>Minimum weight in kg</h4>
 				<input
 					type='number'
 					onChange={(e) => {
-						setMinWeight(e.target.value)
+						setMinweight(e.target.value)
 					}}></input>
-				{validationWeightMin(minWeight)}
+				{validationweightMin(minweight)}
 
-				<h4>Maximum Weight in kg</h4>
+				<h4>Maximum weight in kg</h4>
 				<input
 					type='number'
 					onChange={(e) => {
-						setMaxWeight(e.target.value)
+						setMaxweight(e.target.value)
 					}}></input>
-				{validationWeightMax(maxWeight)}
+				{validationweightMax(maxweight)}
 
 				<h4>Minimum Life Expectancy in years</h4>
 				<input

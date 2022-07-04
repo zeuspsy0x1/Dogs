@@ -1,33 +1,86 @@
-.LandingPage {
+* {
+	box-sizing: border-box;
+	font-family: 'Roboto', sans-serif;
+}
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+#root {
+	background-color: #1d2549;
+	height: 100%;
+}
+.landing-container {
+	height: 100vh; /* Estos 100vh son los que no dejan que se genere scroll innecesario que no quiero */
+	display: grid;
+	grid-template-columns: 100vw;
+	/* 	justify-items: center; */
+	grid-template-rows: 5fr 0.1fr 0.3fr 0.05fr;
+	grid-template-areas:
+		'header'
+		'button'
+		'dogsImage'
+		'links';
+}
+
+.landing-header {
+	color: #bdf347;
+	font-size: 6rem;
+	font-weight: bold;
 	text-align: center;
-	background-image: url('https://www.wallpapersun.com/wp-content/uploads/2021/07/Crysis-Wallpapersun-1.jpg');
-	position: fixed;
-	min-width: 100%;
-	min-height: 100%;
-	background-size: auto;
-	background-position: center;
+	padding-top: 30vh;
 }
-
-.Enter {
-	font-size: 60px;
-	font-weight: bolder;
-	color: rgb(178, 25, 25);
-	text-shadow: 0 0 10px rgb(98, 7, 7);
-	text-transform: uppercase;
-	letter-spacing: 5px;
-	margin-top: 700px;
-	margin-right: 1200px;
-	background-color: rgb(39, 39, 39);
-	border-radius: 30px;
-	padding: 10px;
-	box-shadow: 0 0 100px rgb(174, 28, 28);
-	border: 3px solid rgb(98, 7, 7);
-	cursor: pointer;
+.landing-button-div {
+	grid-area: button;
+	display: flex;
+	justify-content: center;
+	/* display: grid; */
+	justify-items: center;
 }
-
-.Enter:active {
+.landing-button {
+	background-color: #bdf347;
+	border: none;
+	border-radius: 5px;
+	color: #1d2549;
+	font-size: 1.5rem;
+	font-weight: bold;
+	height: 4rem;
+	width: 8rem;
+}
+.landing-button:hover {
+	box-shadow: 0 0 20px rgb(42, 231, 99);
+}
+.landing-button:active {
 	transform: scale3d(0.97, 0.97, 0.97);
-	/* Scaling button to 0.98 to its original size */
-	box-shadow: 0 0 100px rgb(255, 0, 0);
-	/* Lowering the shadow */
+	box-shadow: 0 0 100px rgb(42, 231, 99);
 }
+.landing-dogsImage {
+	grid-area: dogsImage;
+	height: 300px;
+	justify-self: center;
+	align-self: center;
+	margin-top: 10vh;
+}
+
+.landing-links {
+	display: flex;
+	flex-direction: column;
+	justify-content: right;
+	align-items: flex-end;
+	float: right;
+}
+
+.landing-imgLinkedin {
+	display: grid;
+	width: 4vh;
+	height: 4vh;
+}
+.landing-imgGithub {
+	display: grid;
+	width: 19vh;
+	height: 4vh;
+}
+
+/* height: 100vh; Estos 100vh son los que no dejan que se genere scroll innecesario que no quiero  */
+/*float: right;  FLOAT manda todo de una a la posicion que uno le diga, pero no puede ser hijo de flex */
