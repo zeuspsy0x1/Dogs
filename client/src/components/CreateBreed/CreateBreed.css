@@ -1,0 +1,22 @@
+.createBreed-container {
+	box-sizing: border-box;
+	font-family: 'Roboto', sans-serif;
+	color: aliceblue;
+	font-weight: bold;
+	/* Grid */
+	display: grid;
+	grid-template-columns: ;
+}
+
+.error {
+	color: red;
+	font-size: 12px;
+}
+.correctInput {
+	color: green;
+	font-size: 12px;
+}
+.greenText {
+	color: green;
+	font-size: 12px;
+}

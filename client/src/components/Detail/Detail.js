@@ -2,6 +2,8 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import greenPaw from '../../utils/greenPaw.png'
 import { getById } from '../../redux/actions'
 import './Detail.css'
 //el click a cada carta de todos los juegos, abre Detail, nada mas.
@@ -41,19 +43,23 @@ function Detail() {
 
 	return (
 		<>
-			<div className='wrapper'>
-				<div className='container'>
-					<div className='i'> Breed name: {breed.name}</div>
-					<img src={img} alt='img not found' className='card-img' />
-					<hr />
-					<div>height: {breed.height} cm</div>
-					<div>weight: {breed.weight} kg</div>
-					<div>Life Span: {breed.lifeExpectancy}</div>
-					<br />
-					<>Temperaments:</>
-					<ol>{temperamentsArr}</ol>
-					<hr />
+			<div className='detail-container'>
+				<Link to='/main'>
+					<img className='main-homeImg' src={greenPaw} alt='ajndiawud'></img>
+				</Link>
+				<div className='detail-card-container'></div>
+
+				<div className='detail-title-text'> {breed.name}</div>
+				<img src={img} alt='img not found' className='detail-card-img' />
+
+				<div className='detail-line'></div>
+				<div className='detail-breedDetails'>
+					<div>Height:    {breed.height} cm</div>
+					<div>Weight:   {breed.weight} kg</div>
+					<div>Life Span:  {breed.lifeExpectancy}</div>
 				</div>
+				<div className='detail-title-text-temperaments'>Temperaments:</div>
+				<ul className='detail-temperaments'>{temperamentsArr}</ul>
 			</div>
 		</>
 	)

@@ -11,6 +11,8 @@ body {
 	background-color: #1d2549;
 	height: 100%;
 }
+/* /////////////////////////////////////////////////////////////////////////////////////////////// */
+
 .landing-container {
 	height: 100vh; /* Estos 100vh son los que no dejan que se genere scroll innecesario que no quiero */
 	display: grid;
@@ -58,6 +60,7 @@ body {
 .landing-dogsImage {
 	grid-area: dogsImage;
 	height: 300px;
+	object-fit: cover;
 	justify-self: center;
 	align-self: center;
 	margin-top: 10vh;

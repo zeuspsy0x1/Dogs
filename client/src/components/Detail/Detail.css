@@ -1,28 +1,104 @@
-.wrapper {
-	background-color: black;
-	margin: 0px;
-	margin-top: 0px;
+* {
+	box-sizing: border-box;
+	font-family: 'Roboto', sans-serif;
+}
+html,
+body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+#root {
+	background-color: #1d2549;
+	height: 100%;
+}
+/* /////////////////////////////////////////////////////////////////////////////////////////////// */
+
+.detail-container {
+	background-color: #1d2549;
+	height: 100vh; /* Estos 100vh son los que no dejan que se genere scroll innecesario que no quiero */
+	display: grid;
+	grid-template-columns: 20% 30% 0.5% 30% 20%;
+	grid-template-rows: 10% 15% 10% 5% 40% 20%;
 }
 
-.container {
-	background-color: rgb(255, 255, 255);
-	box-shadow: 0 4px 8px 0 rgb(0, 0, 0);
-	transition: 0.3s;
-	border-radius: 30px; /* 5px rounded corners */
-	padding: 100px;
-	padding-top: 30px;
-	padding-bottom: 30px;
-	margin-top: 30px;
-	margin-left: 100px;
-	margin-right: 100px;
-	margin-bottom: 0px;
+.detail-card-container {
+	/* GENERAL CONGIG AND SETTING */
+	grid-column: 2/5;
+	grid-row: 2/6;
+	border-radius: 80px;
+	border: #bdf347;
+	border-width: 10px;
+	border-style: solid;
+	/*  ORDER INSIDE 
+	display: grid;
+	grid-template-columns: 1fr 0.5% 1fr;
+	grid-template-rows: 10% 20% 10% 60%; */
 }
 
-/* Add rounded corners to the top left and the top right corner of the image */
-.card-img {
-	border-radius: 20px 20px 0 0;
-	background-size: cover;
-	background-repeat: no-repeat;
-	height: 50%;
-	width: 50%;
+.detail-title-text {
+	grid-column: 2/5;
+	grid-row-start: 2;
+	font-size: 1.9vw;
+	font-weight: bold;
+	color: #bdf347;
+	text-align: center;
+	margin-top: 60px;
+}
+
+.detail-card-img {
+	grid-column-start: 4;
+	grid-row: 3/6;
+	place-self: center;
+	margin-bottom: 20%;
+	border-radius: 9%;
+	border: #bdf347b0;
+	border-width: 3px;
+	border-style: groove;
+	/* max-height: 80%;
+	max-width: 70%; */
+	height: 76%;
+	width: 76%;
+	object-fit: cover;
+}
+
+.detail-breedDetails {
+	font-weight: bold;
+	font-size: 1.2vw;
+	color: #ffffff;
+	text-align: left;
+	margin-top: 5%;
+	margin-left: 27%;
+	grid-column-start: 2;
+	grid-row-start: 3;
+}
+
+.detail-title-text-temperaments {
+	font-size: 1.5vw;
+	font-weight: bold;
+	color: #bdf347;
+	margin-left: 35%;
+	margin-top: 8%;
+	grid-column-start: 2;
+	grid-row-start: 4;
+}
+.detail-temperaments {
+	font-weight: bold;
+	font-size: 1.2vw;
+	color: #ffffff;
+	text-align: left;
+	margin-top: 10%;
+	margin-left: 23%;
+	grid-column-start: 2;
+	grid-row-start: 5;
+}
+
+.detail-line {
+	grid-column: 3/4;
+	grid-row: 3/6;
+	margin-top: 40%;
+	padding-top: 40%;
+	height: 80%;
+	max-width: 5px;
+	background: #bdf347;
 }

@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { getTemperaments } from '../../redux/actions'
+import './CreateBreed.css'
 
 function CreateVideogame() {
 	const dispatch = useDispatch()
@@ -43,64 +44,72 @@ function CreateVideogame() {
 	//VALIDACIONES QUE SE RENDERIZAN EN EL FORM
 	const validationName = (name) => {
 		//OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOH
-		return checkForSpecialChars(name) === false ? (
-			<div className='correctInput'>Name looks ok</div>
-		) : (
-			<div className='error'>Name doesnt look like a real name</div>
-		)
+		if (name.length > 0) {
+			return checkForSpecialChars(name) === false ? (
+				<div className='correctInput'>Name looks ok</div>
+			) : (
+				<div className='error'>Name doesnt look like a real name</div>
+			)
+		} else return <div className='error'>Name doesnt look like a real name.</div>
 	}
 
 	const validationImage = (image) => {
 		return isImage(image) === true ? (
 			<div className='correctInput'>Image link is ok.</div>
 		) : (
-			<div className='error'>Image link doesnt have an image url.</div>
+			<div className='error'>Image link doesnt have an image url, or it doesnt end in png, jpg...</div>
 		)
 	}
 
 	const validationheightMin = () => {
 		return minheight > 0 ? (
-			<div className='correctInput'>This one is ok</div>
+			<div className='correctInput'>Perfect</div>
 		) : (
 			<div className='error'>This should be a number greater than 0</div>
 		)
 	}
 	const validationheightMax = () => {
-		return maxheight > 0 ? (
-			<div className='correctInput'>This one is ok</div>
+		return maxheight > minheight ? (
+			<div className='correctInput'>Perfect</div>
 		) : (
-			<div className='error'>This should be a number greater than 0</div>
+			<div className='error'>
+				This should be a number greater than 0, and it cant be lower than minimum height
+			</div>
 		)
 	}
 
 	const validationweightMin = () => {
 		return minweight > 0 ? (
-			<div className='correctInput'>This one is ok</div>
+			<div className='correctInput'>Perfect</div>
 		) : (
 			<div className='error'>This should be a number greater than 0</div>
 		)
 	}
 	const validationweightMax = () => {
-		return maxweight > 0 ? (
-			<div className='correctInput'>This one is ok</div>
+		return maxweight > minweight ? (
+			<div className='correctInput'>Perfect</div>
 		) : (
-			<div className='error'>This should be a number greater than 0</div>
+			<div className='error'>
+				This should be a number greater than 0, and it cant be lower than minimum weight
+			</div>
 		)
 	}
 
 	const validationMinLifeExpectancy = () => {
 		return minLifeExpectancy > 0 ? (
-			<div className='correctInput'>This one is ok</div>
+			<div className='correctInput'>Perfect</div>
 		) : (
 			<div className='error'>This should be a number greater than 0</div>
 		)
 	}
 
 	const validationMaxLifeExpectancy = () => {
-		return maxLifeExpectancy > 0 ? (
-			<div className='correctInput'>This one is ok</div>
+		return maxLifeExpectancy > minLifeExpectancy ? (
+			<div className='correctInput'>Perfect</div>
 		) : (
-			<div className='error'>This should be a number greater than 0</div>
+			<div className='error'>
+				This should be a number greater than 0, and it cant be lower than minimum life span
+			</div>
 		)
 	}
 
@@ -155,10 +164,10 @@ function CreateVideogame() {
 	}
 
 	return (
-		<Fragment>
+		<div className='createBreed-container'>
 			<form>
-				<div> Create a videogame here </div>
-				<h4>Breed name</h4>
+				<div className='greenText'> Create a new Breed </div>
+				<h4 className='greenText'>Breed name</h4>
 				<input
 					name='name'
 					onChange={(e) => {
@@ -166,14 +175,14 @@ function CreateVideogame() {
 					}}></input>
 				{validationName(breedName)}
 
-				<h4>Image link</h4>
+				<h4 className='greenText'>Image link</h4>
 				<input
 					onChange={(e) => {
 						setImage(e.target.value)
 					}}></input>
 				{validationImage(image)}
 
-				<h4>Minimum height in cm</h4>
+				<h4 className='greenText'>Minimum height in cm</h4>
 				<input
 					type='number'
 					onChange={(e) => {
@@ -181,7 +190,7 @@ function CreateVideogame() {
 					}}></input>
 				{validationheightMin(minheight)}
 
-				<h4>Maximum height in cm</h4>
+				<h4 className='greenText'>Maximum height in cm</h4>
 				<input
 					type='number'
 					onChange={(e) => {
@@ -189,7 +198,7 @@ function CreateVideogame() {
 					}}></input>
 				<div>{validationheightMax(maxheight)}</div>
 
-				<h4>Minimum weight in kg</h4>
+				<h4 className='greenText'>Minimum weight in kg</h4>
 				<input
 					type='number'
 					onChange={(e) => {
@@ -197,7 +206,7 @@ function CreateVideogame() {
 					}}></input>
 				{validationweightMin(minweight)}
 
-				<h4>Maximum weight in kg</h4>
+				<h4 className='greenText'>Maximum weight in kg</h4>
 				<input
 					type='number'
 					onChange={(e) => {
@@ -205,7 +214,7 @@ function CreateVideogame() {
 					}}></input>
 				{validationweightMax(maxweight)}
 
-				<h4>Minimum Life Expectancy in years</h4>
+				<h4 className='greenText'>Minimum Life Expectancy in years</h4>
 				<input
 					type='number'
 					onChange={(e) => {
@@ -213,7 +222,7 @@ function CreateVideogame() {
 					}}></input>
 				{validationMinLifeExpectancy(minLifeExpectancy)}
 
-				<h4>Maximum Life Expectancy in years</h4>
+				<h4 className='greenText'>Maximum Life Expectancy in years</h4>
 				<input
 					type='number'
 					onChange={(e) => {
@@ -221,17 +230,14 @@ function CreateVideogame() {
 					}}></input>
 				{validationMaxLifeExpectancy()}
 
-				<br />
-				<br />
-
 				<div>
-					<h4>Temperaments</h4>
+					<h4 className='greenText'>Temperaments</h4>
 					{temperaments.length > 0 ? (
 						temperaments.map((t) => <li key={t}>{t.charAt(0).toUpperCase() + t.slice(1)}</li>)
 					) : (
 						<>Click some Platforms down here, remove them by clicking them again:</>
 					)}
-					<br />
+
 					<select size='10' multiple onChange={(e) => handleInputTemperaments(e)}>
 						{mappedTemperaments}
 					</select>
@@ -240,10 +246,10 @@ function CreateVideogame() {
 				<br />
 				<br />
 				<button type='submit' onClick={(e) => validateInputsThenSubmitVideogame(e)}>
-					AAAAAAAA
+					Create Breed
 				</button>
 			</form>
-		</Fragment>
+		</div>
 	)
 }
 

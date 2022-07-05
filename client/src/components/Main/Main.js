@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import Pagination from './Pagination'
 import AllBreeds from './AllBreeds'
 import SearchByName from './SearchByName'
 import { getAllBreeds, getTemperaments, filtersActionFunction } from '../../redux/actions'
+import { useNavigate } from 'react-router-dom'
 import {
 	FILTER_BREEDS_TEMPERAMENT,
 	FILTER_BREEDS_MIN_WEIGHT,
@@ -13,6 +15,8 @@ import {
 	FILTER_BREEDS_Z_TO_A,
 	CLEAR_FILTERS,
 } from '../../redux/types'
+import './Main.css'
+import greenPaw from '../../utils/greenPaw.png'
 
 function Main() {
 	const dispatch = useDispatch()
@@ -21,6 +25,11 @@ function Main() {
 		dispatch(getAllBreeds())
 		dispatch(getTemperaments())
 	}, [dispatch])
+
+	const navigate = useNavigate()
+	const navigateToPostBreed = () => {
+		navigate('/create')
+	}
 
 	////////////////////////////////////////////////////////////    REDUX STATES
 	let breeds = useSelector((state) => state.breeds)
@@ -62,17 +71,25 @@ function Main() {
 	})
 
 	return (
-		<>
-			<SearchByName />
+		<div className='main-container'>
+			<div className='main-searchbar'>
+				<SearchByName />
+			</div>
 
-			<div>Filters by temperament:</div>
-			<select onChange={(e) => dispatch(filtersActionFunction(FILTER_BREEDS_TEMPERAMENT, e.target.value))}>
+			<Link to='/'>
+				<img className='main-homeImg' src={greenPaw} alt='ajndiawud'></img>
+			</Link>
+
+			<div className='main-text-filter-temperament'>Select temperament:</div>
+			<select
+				className='main-filter-temperament'
+				onChange={(e) => dispatch(filtersActionFunction(FILTER_BREEDS_TEMPERAMENT, e.target.value))}>
 				<option value='none'> Pick a temperament </option>
 				{mappedTemperaments}
 			</select>
 
-			<div>General filters:</div>
-			<select onChange={(e) => dispatch(filtersActionFunction(e.target.value))}>
+			<div className='main-text-filter-general'>General filters:</div>
+			<select className='main-filter-general' onChange={(e) => dispatch(filtersActionFunction(e.target.value))}>
 				<option value='none'> Select a filter </option>
 				<option value={FILTER_BREEDS_MIN_WEIGHT}>By min weight</option>
 				<option value={FILTER_BREEDS_MAX_WEIGHT}>By max weight</option>
@@ -81,21 +98,27 @@ function Main() {
 				<option value={FILTER_BREEDS_CREATED}>Created</option>
 			</select>
 			<button
+				className='main-button-clear-filters'
 				onClick={() => {
 					dispatch(filtersActionFunction(CLEAR_FILTERS))
 					setPage(1)
 				}}>
-				Clear all filters
+				Clear filters
 			</button>
 
-			<div>PAGINACION</div>
-			{filteredBreeds.length > 0 ? (
-				<Pagination breeds={filteredBreeds} paginate={paginate} />
-			) : (
-				<Pagination breeds={breeds} paginate={paginate} />
-			)}
-			{renderer()}
-		</>
+			<button className='main-button-post-breed' onClick={navigateToPostBreed}>
+				Create Breed
+			</button>
+
+			<div className='main-pagination-buttons'>
+				{filteredBreeds.length > 0 ? (
+					<Pagination breeds={filteredBreeds} paginate={paginate} />
+				) : (
+					<Pagination breeds={breeds} paginate={paginate} />
+				)}
+			</div>
+			<div className='main-cards-renderer'> {renderer()} </div>
+		</div>
 	)
 }
 

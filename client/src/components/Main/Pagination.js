@@ -11,12 +11,12 @@ function Pagination({ breeds, paginate }) {
 		<nav className='adawdadwawd'>
 			{pageNumbers &&
 				pageNumbers.map((number) => (
-					<button key={number} onClick={() => paginate(number)}>
+					<button className='pagination-buttons' key={number} onClick={() => paginate(number)}>
 						{number}
 					</button>
 				))}
 		</nav>
 	)
-}
+} //SOLO RENDERIZO LOS PRIMEROS 20, LA IDEA ES DESPUES DE UNOS 15, MOSTRAR UN NEXT
 
 export default Pagination

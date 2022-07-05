@@ -20,19 +20,20 @@ function Card(props) {
 			return <li key={t}>{t}</li>
 		})
 	}
+	{
+		/* <div className='card-container' onClick={moveToDetailsOfTheBreed}>
+		</div> */
+	}
 
 	return (
 		//Solo muestro 5 temperamentos para que no me rompa las cartas
 		<>
-			<div onClick={moveToDetailsOfTheBreed} className='carta'>
-				<img src={image} alt='img' className='img' />{' '}
-				<div className='contenedor'>
-					{' '}
-					<h4>
-						<b>{name}</b>
-					</h4>
-					<ol>{temperamentsArr.slice(0, 5)}</ol>
-					<div>weight {weight}</div>
+			<div className='card-container' onClick={moveToDetailsOfTheBreed}>
+				<img src={image} alt='img' className='img' />
+				<div className='card-details'>
+					<b>{name}</b>
+					<ul>{temperamentsArr.slice(0, 4)}</ul>
+					<div>Weight: {weight} kg</div>
 				</div>
 			</div>
 		</>

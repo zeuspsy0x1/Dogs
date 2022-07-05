@@ -8,7 +8,7 @@ function allBreeds({ allBreeds }) {
 
 	const mapeo = allBreeds?.map((item) => {
 		return (
-			<Fragment key={allBreeds.indexOf(item)}>
+			<div className='allbreeds-cards-container' key={allBreeds.indexOf(item)}>
 				<Card
 					name={item.name}
 					id={item.id}
@@ -16,7 +16,7 @@ function allBreeds({ allBreeds }) {
 					temperaments={item.temperaments}
 					weight={item.weight}
 				/>
-			</Fragment>
+			</div>
 		)
 	})
 

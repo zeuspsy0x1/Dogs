@@ -1,27 +1,42 @@
-.carta {
-	/* Add shadows to create the "card" effect */
-	box-shadow: 0 4px 8px 0 rgba(31, 31, 31, 0.2);
-	transition: 0.3s;
-	border-radius: 20px;
-	height: 500px;
-	width: 330px;
-
-	margin: 50px;
+.card-container {
 	display: grid;
+	min-height: 370px;
+	max-height: 370px;
+	max-width: 300px;
+	min-width: 300px;
+	margin: 30px;
+	grid-template-columns: 1fr;
+	grid-template-rows: 2fr;
+	margin-top: 15px;
+	border-color: #bdf347;
+	border-width: 5px;
+	border-radius: 10%;
+	border-style: solid;
+
+	color: aliceblue;
+	transition: 0.5s;
+}
+
+.card-details {
+	/* Add shadows to create the "card" effect */
+	margin-left: 20px;
+	height: 170px;
+	width: 230px;
 }
 
 .img {
-	width: 100%;
-	height: 100%;
-	border-radius: 20px 20px 0 0;
+	width: 90%;
+	height: 90%;
+	border-radius: 10%;
+	object-fit: cover;
+	margin: 5%;
 }
 
 /* On mouse-over, add a deeper shadow */
-.carta:hover {
-	box-shadow: 0 8px 36px 0 rgba(0, 0, 0, 0.2);
+.card-container:hover {
+	box-shadow: 0px 5px 5px #76992c;
+	transform: scale(1.05);
+	transition: 0.2s;
 }
 
 /* Add some padding inside the card container */
-.contenedor {
-	padding: 1px 20px;
-}

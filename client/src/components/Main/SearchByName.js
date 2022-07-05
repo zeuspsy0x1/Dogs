@@ -18,10 +18,11 @@ function SearchByName() {
 				e.preventDefault()
 				handleTitleSubmit(e)
 			}}>
-			<input type='text'></input>
-			<button type='submit'>Click to search recipe name</button>
+			<input className='search-input' placeholder='Search breed by name' size='20' type='text'></input>
 		</form>
 	)
 }
+
+/* <button type='submit'>Enter</button> */
 
 export default SearchByName
