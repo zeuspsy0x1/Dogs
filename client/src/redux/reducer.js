@@ -121,10 +121,10 @@ const reducer = function (state = initialState, action) {
 				filteredBreeds: created.length === 0 ? ['created is 0'] : created,
 			}
 		case FILTER_BREEDS_TEMPERAMENT:
-			console.log(action.payload)
+			//console.log(action.payload)
 
 			let arr = [...state.breeds]
-			console.log(arr)
+			//console.log(arr)
 			let filtered = arr.filter((b) => {
 				return b.temperaments.includes(action.payload.toLowerCase()) === true
 			})
@@ -135,10 +135,23 @@ const reducer = function (state = initialState, action) {
 			}
 
 		case CLEAR_FILTERS:
+			let filteredToSend = []
+			let breedsToSend = []
+
+			if (action.payload === 2) {
+				//EL DOS SE LO MANDO EN EL SEARCHBREED COMPONENT, SIGNIFICA QUE ESTOY BUSCANDO POR NOMBRE Y QUIERO QUE ME SALGA ERROR SI NO HAY NINGUNA RAZA POR ESE NOMBRE
+				filteredToSend = []
+				breedsToSend = []
+			}
+			if (action.payload === 0) {
+				filteredToSend = []
+				breedsToSend = [...state.breedsBackup]
+			}
+
 			return {
 				...state,
-				filteredBreeds: [],
-				breeds: [...state.breedsBackup],
+				filteredBreeds: filteredToSend,
+				breeds: breedsToSend,
 			}
 
 		default:

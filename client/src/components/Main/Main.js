@@ -51,10 +51,10 @@ function Main() {
 	//////////////////////////////////////////////////////////// RENDERER function
 	let renderer = () => {
 		if (breeds.length === 0 || breeds === undefined) {
-			return <div>No HAY BREEDS PARA MOSTRAR POR ESE NOMBRE</div>
+			return <div className='error'>There are 0 breeds by that name</div>
 		}
 		if (filteredBreeds[0] === 'created is 0') {
-			return <div>No hay NADA POR ESTE FILTRO</div>
+			return <div>There is nothing to show by that filter</div>
 		}
 		if (filteredBreeds.length > 0) {
 			let currentItems = filteredBreeds.slice(indexOfFirstItem, indexOfLastItem)
@@ -82,6 +82,7 @@ function Main() {
 
 			<div className='main-text-filter-temperament'>Select temperament:</div>
 			<select
+				id='temperamentfilters'
 				className='main-filter-temperament'
 				onChange={(e) => dispatch(filtersActionFunction(FILTER_BREEDS_TEMPERAMENT, e.target.value))}>
 				<option value='none'> Pick a temperament </option>
@@ -89,7 +90,10 @@ function Main() {
 			</select>
 
 			<div className='main-text-filter-general'>General filters:</div>
-			<select className='main-filter-general' onChange={(e) => dispatch(filtersActionFunction(e.target.value))}>
+			<select
+				id='generalfilters'
+				className='main-filter-general'
+				onChange={(e) => dispatch(filtersActionFunction(e.target.value))}>
 				<option value='none'> Select a filter </option>
 				<option value={FILTER_BREEDS_MIN_WEIGHT}>By min weight</option>
 				<option value={FILTER_BREEDS_MAX_WEIGHT}>By max weight</option>
@@ -102,6 +106,8 @@ function Main() {
 				onClick={() => {
 					dispatch(filtersActionFunction(CLEAR_FILTERS))
 					setPage(1)
+					document.getElementById('generalfilters').value = 'none'
+					document.getElementById('temperamentfilters').value = 'none'
 				}}>
 				Clear filters
 			</button>

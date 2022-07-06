@@ -1,10 +1,12 @@
 import axios from 'axios'
 import React, { Fragment } from 'react'
+import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { getTemperaments } from '../../redux/actions'
 import './CreateBreed.css'
+import greenPaw from '../../utils/greenPaw.png'
 
 function CreateVideogame() {
 	const dispatch = useDispatch()
@@ -69,7 +71,7 @@ function CreateVideogame() {
 		)
 	}
 	const validationheightMax = () => {
-		return maxheight > minheight ? (
+		return minheight < parseInt(maxheight) ? (
 			<div className='correctInput'>Perfect</div>
 		) : (
 			<div className='error'>
@@ -86,7 +88,7 @@ function CreateVideogame() {
 		)
 	}
 	const validationweightMax = () => {
-		return maxweight > minweight ? (
+		return minweight < parseInt(maxweight) ? (
 			<div className='correctInput'>Perfect</div>
 		) : (
 			<div className='error'>
@@ -104,7 +106,7 @@ function CreateVideogame() {
 	}
 
 	const validationMaxLifeExpectancy = () => {
-		return maxLifeExpectancy > minLifeExpectancy ? (
+		return minLifeExpectancy < parseInt(maxLifeExpectancy) ? (
 			<div className='correctInput'>Perfect</div>
 		) : (
 			<div className='error'>
@@ -135,7 +137,10 @@ function CreateVideogame() {
 			maxheight !== 0 &&
 			maxweight !== 0 &&
 			minLifeExpectancy !== 0 &&
-			maxLifeExpectancy !== 0
+			maxLifeExpectancy !== 0 &&
+			minweight < maxweight &&
+			minheight < maxheight &&
+			minLifeExpectancy < maxLifeExpectancy
 		) {
 			let newBreed = {
 				breedName: breedName.toLowerCase(),
@@ -164,92 +169,137 @@ function CreateVideogame() {
 	}
 
 	return (
-		<div className='createBreed-container'>
-			<form>
-				<div className='greenText'> Create a new Breed </div>
-				<h4 className='greenText'>Breed name</h4>
-				<input
-					name='name'
-					onChange={(e) => {
-						setBreedName(e.target.value)
-					}}></input>
-				{validationName(breedName)}
+		<>
+			<form className='cb-container'>
+				<div className='pawImage'>
+					<Link to='/main'>
+						<img className='pawImage' src={greenPaw} alt='ajndiawud'></img>
+					</Link>
+				</div>
+				<div className='create-breed-title-main'> Create a new Breed </div>
 
-				<h4 className='greenText'>Image link</h4>
-				<input
-					onChange={(e) => {
-						setImage(e.target.value)
-					}}></input>
-				{validationImage(image)}
-
-				<h4 className='greenText'>Minimum height in cm</h4>
-				<input
-					type='number'
-					onChange={(e) => {
-						setMinheight(e.target.value)
-					}}></input>
-				{validationheightMin(minheight)}
-
-				<h4 className='greenText'>Maximum height in cm</h4>
-				<input
-					type='number'
-					onChange={(e) => {
-						setMaxheight(e.target.value)
-					}}></input>
-				<div>{validationheightMax(maxheight)}</div>
-
-				<h4 className='greenText'>Minimum weight in kg</h4>
-				<input
-					type='number'
-					onChange={(e) => {
-						setMinweight(e.target.value)
-					}}></input>
-				{validationweightMin(minweight)}
-
-				<h4 className='greenText'>Maximum weight in kg</h4>
-				<input
-					type='number'
-					onChange={(e) => {
-						setMaxweight(e.target.value)
-					}}></input>
-				{validationweightMax(maxweight)}
-
-				<h4 className='greenText'>Minimum Life Expectancy in years</h4>
-				<input
-					type='number'
-					onChange={(e) => {
-						setMinLifeExpectancy(e.target.value)
-					}}></input>
-				{validationMinLifeExpectancy(minLifeExpectancy)}
-
-				<h4 className='greenText'>Maximum Life Expectancy in years</h4>
-				<input
-					type='number'
-					onChange={(e) => {
-						setMaxLifeExpectancy(e.target.value)
-					}}></input>
-				{validationMaxLifeExpectancy()}
-
-				<div>
-					<h4 className='greenText'>Temperaments</h4>
-					{temperaments.length > 0 ? (
-						temperaments.map((t) => <li key={t}>{t.charAt(0).toUpperCase() + t.slice(1)}</li>)
-					) : (
-						<>Click some Platforms down here, remove them by clicking them again:</>
-					)}
-
-					<select size='10' multiple onChange={(e) => handleInputTemperaments(e)}>
-						{mappedTemperaments}
-					</select>
+				<h4 className='create-breed-titles localizationName'>Name</h4>
+				<div className='localizationInputName'>
+					<input
+						className='inputCSS'
+						name='name'
+						placeholder='Breed name'
+						onChange={(e) => {
+							setBreedName(e.target.value)
+						}}></input>
+					{validationName(breedName)}
 				</div>
 
-				<br />
-				<br />
-				<button type='submit' onClick={(e) => validateInputsThenSubmitVideogame(e)}>
+				<h4 className='create-breed-titles localizationImage'>Image</h4>
+				<div className='localizationInputImage'>
+					<input
+						className='inputCSS'
+						placeholder='Image link'
+						onChange={(e) => {
+							setImage(e.target.value)
+						}}></input>
+					{validationImage(image)}
+				</div>
+
+				<h4 className='create-breed-titles localizationHeight'>Height</h4>
+				<div className='localizationInputMinHeight'>
+					<input
+						className='inputCSS'
+						type='number'
+						placeholder='Min height in cm'
+						onChange={(e) => {
+							setMinheight(e.target.value)
+						}}></input>
+					{validationheightMin(minheight)}
+				</div>
+				<div className='localizationInputMaxHeight'>
+					<input
+						className='inputCSS'
+						type='number'
+						placeholder='Max height in cm'
+						onChange={(e) => {
+							setMaxheight(e.target.value)
+						}}></input>
+					{validationheightMax(maxheight)}
+				</div>
+
+				<h4 className='create-breed-titles localizationWeight'>Weight</h4>
+				<div className='localizationInputMinWeight'>
+					<input
+						type='number'
+						className='inputCSS'
+						placeholder='Min weight in kg'
+						onChange={(e) => {
+							setMinweight(e.target.value)
+						}}></input>
+					{validationweightMin(minweight)}
+				</div>
+
+				<div className='localizationInputMaxWeight'>
+					<input
+						className='inputCSS'
+						type='number'
+						placeholder='Max weight in kg'
+						onChange={(e) => {
+							setMaxweight(e.target.value)
+						}}></input>
+					{validationweightMax(maxweight)}
+				</div>
+
+				<h4 className='create-breed-titles localizationLifeSpan'>Life span </h4>
+				<div className='localizationInputMinLifeSpan'>
+					<input
+						className='inputCSS'
+						type='number'
+						placeholder='Min life in years'
+						onChange={(e) => {
+							setMinLifeExpectancy(e.target.value)
+						}}></input>
+					{validationMinLifeExpectancy(minLifeExpectancy)}
+				</div>
+
+				<div className='localizationInputMaxLifeSpan'>
+					<input
+						className='inputCSS'
+						type='number'
+						placeholder='Max life in years'
+						onChange={(e) => {
+							setMaxLifeExpectancy(e.target.value)
+						}}></input>
+					{validationMaxLifeExpectancy()}
+				</div>
+
+				<div className='localizationTemperaments create-breed-titles'>
+					<h4 className='create-breed-titles-temperamentssc'>Temperaments</h4>
+					<select
+						className='selectTemperaments'
+						size='10'
+						multiple
+						onChange={(e) => handleInputTemperaments(e)}>
+						{mappedTemperaments}
+					</select>
+					<h4 className=''>Selected:</h4>
+					<div className='locationSelected'>
+						{temperaments.length > 0 ? (
+							temperaments.map((t) => (
+								<li className='selected' key={t}>
+									{t.charAt(0).toUpperCase() + t.slice(1)}
+								</li>
+							))
+						) : (
+							<div className='error'>Click some temperaments, remove them by clicking them again.</div>
+						)}
+					</div>
+				</div>
+				<div className='cbline'></div>
+				<button
+					className='cb-button-create'
+					type='submit'
+					onClick={(e) => validateInputsThenSubmitVideogame(e)}>
 					Create Breed
 				</button>
 			</form>
-		</div>
+		</>
 	)
 }
 

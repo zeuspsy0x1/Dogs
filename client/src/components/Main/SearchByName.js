@@ -1,5 +1,5 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { getByName, filtersActionFunction } from '../../redux/actions'
 import { CLEAR_FILTERS } from '../../redux/types'
 
@@ -8,7 +8,7 @@ function SearchByName() {
 
 	let handleTitleSubmit = (e) => {
 		e.preventDefault()
-		dispatch(filtersActionFunction(CLEAR_FILTERS))
+		dispatch(filtersActionFunction(CLEAR_FILTERS, 2))
 		dispatch(getByName(e.target[0].value))
 	}
 
@@ -17,8 +17,14 @@ function SearchByName() {
 			onSubmit={(e) => {
 				e.preventDefault()
 				handleTitleSubmit(e)
+				document.getElementById('nameInputToClear').value = ''
 			}}>
-			<input className='search-input' placeholder='Search breed by name' size='20' type='text'></input>
+			<input
+				id='nameInputToClear'
+				className='search-input'
+				placeholder='Search breed by name'
+				size='20'
+				type='text'></input>
 		</form>
 	)
 }
