@@ -1,9 +1,9 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { getByName, filtersActionFunction } from '../../redux/actions'
 import { CLEAR_FILTERS } from '../../redux/types'
 
-function SearchByName() {
+function SearchByName({ setPage }) {
 	const dispatch = useDispatch()
 
 	let handleTitleSubmit = (e) => {
@@ -17,6 +17,7 @@ function SearchByName() {
 			onSubmit={(e) => {
 				e.preventDefault()
 				handleTitleSubmit(e)
+				setPage(1)
 				document.getElementById('nameInputToClear').value = ''
 			}}>
 			<input

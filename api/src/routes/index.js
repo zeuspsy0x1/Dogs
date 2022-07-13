@@ -2,6 +2,7 @@ const { Router } = require('express')
 const { Breed, Temperament } = require('../db')
 const { getBreedsByName, getBreedsById, getBreeds } = require('../controllers/apiFunctions')
 const { getBreedsFromDb, findBreedByNameInDb, findBreedByIdInDb } = require('../controllers/dbFunctions')
+//const { where } = require('sequelize/types')
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 const router = Router()
@@ -134,3 +135,18 @@ router.post('/create', async function (req, res) {
 })
 
 module.exports = router
+
+/* router.put('/update/:name', async function (req, res) {
+	const name = req.params.name
+
+	console.log(name)
+	let response = await Breed.update({ weight: '70 - 90' }, { where: { breedName: name } })
+
+	console.log(response)
+
+	if (response.length > 0) {
+		return res.status(200).json(response)
+	} else {
+		return res.status(400).json({ message: `There was a problem updating the name ${name}` })
+	}
+}) */

@@ -10,6 +10,7 @@ import {
 	LINK_GET_BREED_BY_ID,
 	LINK_GET_BREED_BY_NAME,
 	LINK_GET_TEMPERAMENTS,
+	CLEAR_DETAILS,
 } from './types'
 
 export function getAllBreeds() {
@@ -88,6 +89,15 @@ export function getById(id) {
 					payload: { error: 'There is no breed by that id' },
 				})
 			})
+	}
+}
+
+export function setDetailObj(payload = {}) {
+	return function (dispatch) {
+		dispatch({
+			type: CLEAR_DETAILS,
+			payload: payload,
+		})
 	}
 }
 

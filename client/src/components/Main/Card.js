@@ -20,10 +20,6 @@ function Card(props) {
 			return <li key={t}>{t}</li>
 		})
 	}
-	{
-		/* <div className='card-container' onClick={moveToDetailsOfTheBreed}>
-		</div> */
-	}
 
 	return (
 		//Solo muestro 5 temperamentos para que no me rompa las cartas

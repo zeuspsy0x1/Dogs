@@ -1,10 +1,11 @@
+/* eslint-disable no-useless-escape */
 import axios from 'axios'
 import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
-import { getTemperaments } from '../../redux/actions'
+import { getTemperaments, setDetailObj } from '../../redux/actions'
 import './CreateBreed.css'
 import greenPaw from '../../utils/greenPaw.png'
 
@@ -23,6 +24,9 @@ function CreateVideogame() {
 
 	useEffect(() => {
 		dispatch(getTemperaments())
+		return () => {
+			dispatch(setDetailObj())
+		}
 	}, [dispatch])
 
 	let temperamentsFromRedux = useSelector((state) => state.temperaments)
@@ -131,16 +135,16 @@ function CreateVideogame() {
 			checkForSpecialChars(breedName) === false &&
 			breedName.length > 1 &&
 			isImage(image) === true &&
-			image.length > 13 &&
-			minheight !== 0 &&
-			minweight !== 0 &&
-			maxheight !== 0 &&
-			maxweight !== 0 &&
-			minLifeExpectancy !== 0 &&
-			maxLifeExpectancy !== 0 &&
-			minweight < maxweight &&
-			minheight < maxheight &&
-			minLifeExpectancy < maxLifeExpectancy
+			image.length > 10 &&
+			parseInt(minheight) > 0 &&
+			parseInt(minweight) > 0 &&
+			parseInt(maxheight) > 0 &&
+			parseInt(maxweight) > 0 &&
+			parseInt(minLifeExpectancy) > 0 &&
+			parseInt(maxLifeExpectancy) > 0 &&
+			parseInt(minheight) < parseInt(maxheight) &&
+			parseInt(minweight) < parseInt(maxweight) &&
+			parseInt(minLifeExpectancy) < parseInt(maxLifeExpectancy)
 		) {
 			let newBreed = {
 				breedName: breedName.toLowerCase(),
@@ -208,7 +212,7 @@ function CreateVideogame() {
 						type='number'
 						placeholder='Min height in cm'
 						onChange={(e) => {
-							setMinheight(e.target.value)
+							setMinheight(Math.floor(e.target.value))
 						}}></input>
 					{validationheightMin(minheight)}
 				</div>
@@ -218,7 +222,7 @@ function CreateVideogame() {
 						type='number'
 						placeholder='Max height in cm'
 						onChange={(e) => {
-							setMaxheight(e.target.value)
+							setMaxheight(Math.floor(e.target.value))
 						}}></input>
 					{validationheightMax(maxheight)}
 				</div>
@@ -230,7 +234,7 @@ function CreateVideogame() {
 						className='inputCSS'
 						placeholder='Min weight in kg'
 						onChange={(e) => {
-							setMinweight(e.target.value)
+							setMinweight(Math.floor(e.target.value))
 						}}></input>
 					{validationweightMin(minweight)}
 				</div>
@@ -241,7 +245,7 @@ function CreateVideogame() {
 						type='number'
 						placeholder='Max weight in kg'
 						onChange={(e) => {
-							setMaxweight(e.target.value)
+							setMaxweight(Math.floor(e.target.value))
 						}}></input>
 					{validationweightMax(maxweight)}
 				</div>
@@ -253,7 +257,7 @@ function CreateVideogame() {
 						type='number'
 						placeholder='Min life in years'
 						onChange={(e) => {
-							setMinLifeExpectancy(e.target.value)
+							setMinLifeExpectancy(Math.floor(e.target.value))
 						}}></input>
 					{validationMinLifeExpectancy(minLifeExpectancy)}
 				</div>
@@ -264,7 +268,7 @@ function CreateVideogame() {
 						type='number'
 						placeholder='Max life in years'
 						onChange={(e) => {
-							setMaxLifeExpectancy(e.target.value)
+							setMaxLifeExpectancy(Math.floor(e.target.value))
 						}}></input>
 					{validationMaxLifeExpectancy()}
 				</div>

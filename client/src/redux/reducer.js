@@ -7,7 +7,9 @@ import {
 	FILTER_BREEDS_A_TO_Z,
 	FILTER_BREEDS_Z_TO_A,
 	CLEAR_FILTERS,
+	CLEAR_DETAILS,
 } from './types'
+
 const initialState = {
 	breeds: [],
 	breedsBackup: [],
@@ -29,9 +31,15 @@ const reducer = function (state = initialState, action) {
 		case GET_BREED_BY_NAME:
 			return {
 				...state,
+				breedById: [],
 				breeds: action.payload,
 			}
 		case GET_BREED_BY_ID:
+			return {
+				...state,
+				breedById: action.payload,
+			}
+		case CLEAR_DETAILS:
 			return {
 				...state,
 				breedById: action.payload,
@@ -49,7 +57,7 @@ const reducer = function (state = initialState, action) {
 		//                                                          FILTERS
 		case FILTER_BREEDS_A_TO_Z:
 			let atz = [
-				...state.breeds.sort((a, b) => {
+				...state.breedsBackup.sort((a, b) => {
 					if (a.name.toLowerCase() > b.name.toLowerCase()) {
 						return 1
 					}
@@ -65,7 +73,7 @@ const reducer = function (state = initialState, action) {
 			}
 		case FILTER_BREEDS_Z_TO_A:
 			let zta = [
-				...state.breeds.sort((a, b) => {
+				...state.breedsBackup.sort((a, b) => {
 					if (a.name.toLowerCase() < b.name.toLowerCase()) {
 						return 1
 					}
@@ -82,7 +90,7 @@ const reducer = function (state = initialState, action) {
 
 		case FILTER_BREEDS_MIN_WEIGHT:
 			//SACO DE WEIGHT Y HEIGHT LOS PERROS QUE TIENEN NaN EN ESOS DATOS
-			let min = [...state.breeds].filter((b) => b.weight.includes('NaN') === false)
+			let min = [...state.breedsBackup].filter((b) => b.weight.includes('NaN') === false)
 			let minWeight = [
 				min.sort((a, b) => {
 					let aaa = a.weight.split(' - ').reduce((bef, aft) => (parseInt(bef) + parseInt(aft)) / 2)
@@ -95,7 +103,7 @@ const reducer = function (state = initialState, action) {
 				filteredBreeds: minWeight[0],
 			}
 		case FILTER_BREEDS_MAX_WEIGHT:
-			let max = [...state.breeds].filter((b) => b.weight.includes('NaN') === false)
+			let max = [...state.breedsBackup].filter((b) => b.weight.includes('NaN') === false)
 
 			let maxWeight = [
 				max.sort((a, b) => {
@@ -111,7 +119,7 @@ const reducer = function (state = initialState, action) {
 
 		case FILTER_BREEDS_CREATED:
 			let created = [
-				...state.breeds.filter((b) => {
+				...state.breedsBackup.filter((b) => {
 					return typeof b.id === 'string'
 					//return b.id.length > 35 // Miro si el id es uuid, si si, es creado, si no no, ez
 				}),
@@ -123,7 +131,7 @@ const reducer = function (state = initialState, action) {
 		case FILTER_BREEDS_TEMPERAMENT:
 			//console.log(action.payload)
 
-			let arr = [...state.breeds]
+			let arr = [...state.breedsBackup]
 			//console.log(arr)
 			let filtered = arr.filter((b) => {
 				return b.temperaments.includes(action.payload.toLowerCase()) === true

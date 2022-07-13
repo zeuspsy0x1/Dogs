@@ -73,7 +73,7 @@ function Main() {
 	return (
 		<div className='main-container'>
 			<div className='main-searchbar'>
-				<SearchByName />
+				<SearchByName setPage={setPage} />
 			</div>
 
 			<Link to='/'>
@@ -84,7 +84,10 @@ function Main() {
 			<select
 				id='temperamentfilters'
 				className='main-filter-temperament'
-				onChange={(e) => dispatch(filtersActionFunction(FILTER_BREEDS_TEMPERAMENT, e.target.value))}>
+				onChange={(e) => {
+					dispatch(filtersActionFunction(FILTER_BREEDS_TEMPERAMENT, e.target.value))
+					setPage(1)
+				}}>
 				<option value='none'> Pick a temperament </option>
 				{mappedTemperaments}
 			</select>
