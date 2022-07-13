@@ -1,13 +1,17 @@
 import React from 'react'
 import './Card.css'
 import { useNavigate } from 'react-router-dom'
+import { setDetailObj } from '../../redux/actions'
+import { useDispatch } from 'react-redux'
 
 function Card(props) {
+	const dispatch = useDispatch()
 	const navigate = useNavigate()
 
 	const { name, image, id, temperaments, weight } = props
 
 	const moveToDetailsOfTheBreed = () => {
+		dispatch(setDetailObj()) //despacho la accion de resetear el objeto de id en redux, cada vez que se clickea una breed
 		navigate(`/detail/${id}`)
 	}
 
