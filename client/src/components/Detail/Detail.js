@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom'
 import greenPaw from '../../utils/greenPaw.png'
 import { getById } from '../../redux/actions'
 import './Detail.css'
+import LoadingComponent from '../Loading'
+
 //el click a cada carta de todos los juegos, abre Detail, nada mas.
 //si le dan click a una, se toma el id de esa carta y se manda a Detail.
 //detail hace fetch con ese id y trae toda la info de ese juego.
@@ -21,10 +23,11 @@ function Detail() {
 	}, [dispatch, params.id])
 
 	const breedById = useSelector((state) => state.breedById)
+
 	console.log(breedById)
 
 	if (breedById.error) {
-		return <div>There is no breed by that id</div>
+		return <div className='error'>There is no breed by that id</div>
 	}
 
 	let breed = breedById
@@ -41,26 +44,38 @@ function Detail() {
 
 	let img = breed.image
 
+	/* let renderer = () => {
+		return Object.keys(breedById).length > 0 ? (
+			
+		) : (
+			<>LOADIIIIIIIIIIING</>
+		)
+	} */
+
 	return (
 		<>
-			<div className='detail-container'>
-				<Link to='/main'>
-					<img className='main-homeImg' src={greenPaw} alt='ajndiawud'></img>
-				</Link>
-				<div className='detail-card-container'></div>
+			{Object.keys(breedById).length > 0 ? (
+				<div className='detail-container'>
+					<Link to='/main'>
+						<img className='main-homeImg' src={greenPaw} alt='ajndiawud'></img>
+					</Link>
+					<div className='detail-card-container'></div>
 
-				<div className='detail-title-text'> {breed.name}</div>
-				<img src={img} alt='img not found' className='detail-card-img' />
+					<div className='detail-title-text'> {breed.name}</div>
+					<img src={img} alt='img not found' className='detail-card-img' />
 
-				<div className='detail-line'></div>
-				<div className='detail-breedDetails'>
-					<div>Height:    {breed.height} cm</div>
-					<div>Weight:   {breed.weight} kg</div>
-					<div>Life Span:  {breed.lifeExpectancy}</div>
+					<div className='detail-line'></div>
+					<div className='detail-breedDetails'>
+						<div>Height:    {breed.height} cm</div>
+						<div>Weight:   {breed.weight} kg</div>
+						<div>Life Span:  {breed.lifeExpectancy}</div>
+					</div>
+					<div className='detail-title-text-temperaments'>Temperaments:</div>
+					<ul className='detail-temperaments'>{temperamentsArr}</ul>
 				</div>
-				<div className='detail-title-text-temperaments'>Temperaments:</div>
-				<ul className='detail-temperaments'>{temperamentsArr}</ul>
-			</div>
+			) : (
+				<LoadingComponent />
+			)}
 		</>
 	)
 }

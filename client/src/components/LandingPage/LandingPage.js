@@ -1,19 +1,11 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
 import './LandingPage.css'
 import landingDogs from '../../utils/landingDogs.png'
 import linkedin from '../../utils/linkedin.PNG'
 import github from '../../utils/github.PNG'
 
 function LandingPage() {
-	const dispatch = useDispatch()
-
-	useEffect(() => {
-		//dispatch(getAllBreeds())
-		//dispatch(getByName('ze'))
-	}, [dispatch])
-
 	const navigate = useNavigate()
 	const navigateToMain = () => {
 		navigate('/main')
