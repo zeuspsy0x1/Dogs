@@ -17,6 +17,7 @@ import {
 } from '../../redux/types'
 import './Main.css'
 import greenPaw from '../../utils/greenPaw.png'
+import LoadingComponent from '../Loading'
 
 function Main() {
 	const dispatch = useDispatch()
@@ -50,7 +51,7 @@ function Main() {
 	}
 	//////////////////////////////////////////////////////////// RENDERER function
 	let renderer = () => {
-		if (breeds.length === 0 || breeds === undefined) {
+		if (breeds[0] === 'no dog' || breeds === undefined) {
 			return <div className='error'>There are 0 breeds by that name</div>
 		}
 		if (filteredBreeds[0] === 'created is 0') {
@@ -126,7 +127,9 @@ function Main() {
 					<Pagination breeds={breeds} paginate={paginate} />
 				)}
 			</div>
-			<div className='main-cards-renderer'> {renderer()} </div>
+			<div className='main-cards-renderer'>
+				{breeds.length > 0 || filteredBreeds.length > 0 ? renderer() : <LoadingComponent />}
+			</div>
 		</div>
 	)
 }

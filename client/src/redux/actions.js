@@ -48,6 +48,10 @@ export function getByName(name) {
 				})
 			)
 			.catch((err) => {
+				dispatch({
+					type: GET_BREED_BY_NAME,
+					payload: ['no dog'],
+				})
 				console.log(err + '  this was the error when trying to get breeds BY NAME')
 			})
 	}
@@ -109,14 +113,3 @@ export function filtersActionFunction(filterType, payload = 0) {
 		})
 	}
 }
-
-//Si se hace de la primera forma se rompe el estado de redux y no me trae nada:
-/* export const getByName = (name) => {
-	return (dispatch) => {
-		const response = axios.get(LINK_GET_BREED_BY_NAME + name)
-		dispatch({
-			type: GET_BREED_BY_NAME,
-			payload: response.data,
-		})
-	}
-} */
