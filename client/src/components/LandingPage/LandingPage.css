@@ -98,9 +98,10 @@ body {
 	justify-content: right;
 	align-items: flex-end;
 	float: right;
+	/* El position absolute y bottom/right mandan lo de este div abajo a la derecha */
 	position: absolute;
-            bottom: 0;
-            right: 0;
+	bottom: 0;
+	right: 0;
 }
 
 .landing-imgLinkedin {
