@@ -18,7 +18,7 @@ body {
 	display: grid;
 	grid-template-columns: 100vw;
 	/* 	justify-items: center; */
-	grid-template-rows: 5fr 0.1fr 0.3fr 0.05fr;
+	grid-template-rows: 0.5fr 0.1fr 0.3fr 1fr;
 	grid-template-areas:
 		'header'
 		'button'
@@ -31,15 +31,41 @@ body {
 	font-size: 6rem;
 	font-weight: bold;
 	text-align: center;
-	padding-top: 30vh;
+	padding-top: 25vh;
 }
+
+@media (max-width: 768px) {
+	.landing-header {
+		font-size: 3rem;
+		padding-top: 10vh;
+	}
+}
+
+
 .landing-button-div {
+	margin-top: 5vh;
 	grid-area: button;
 	display: flex;
 	justify-content: center;
 	/* display: grid; */
 	justify-items: center;
 }
+
+@media (max-width: 400px) {
+	.landing-button {
+		margin-top: 5vh;
+		margin-bottom: 5vh;
+		background-color: #bdf347;
+		border: none;
+		border-radius: 5px;
+		color: #1d2549;
+		font-size: 1.5rem;
+		font-weight: bold;
+		height: 1rem;
+		width: 2rem;
+	}
+}
+
 .landing-button {
 	background-color: #bdf347;
 	border: none;
@@ -63,7 +89,7 @@ body {
 	object-fit: cover;
 	justify-self: center;
 	align-self: center;
-	margin-top: 10vh;
+	margin-top: 4vh;
 }
 
 .landing-links {
@@ -72,17 +98,35 @@ body {
 	justify-content: right;
 	align-items: flex-end;
 	float: right;
+	position: absolute;
+            bottom: 0;
+            right: 0;
 }
 
 .landing-imgLinkedin {
-	display: grid;
 	width: 4vh;
 	height: 4vh;
+	/* position: absolute;
+            bottom: 0;
+            right: 0; */
 }
 .landing-imgGithub {
-	display: grid;
 	width: 19vh;
 	height: 4vh;
+}
+
+
+
+
+@media (max-width: 400px)  {
+	.landing-dogsImage {
+		grid-area: dogsImage;
+		height: 300px;
+		object-fit: cover;
+		justify-self: center;
+		align-self: center;
+		margin-top: 1vh;
+	}
 }
 
 /* height: 100vh; Estos 100vh son los que no dejan que se genere scroll innecesario que no quiero  */
