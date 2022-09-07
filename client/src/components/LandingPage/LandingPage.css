@@ -116,9 +116,6 @@ body {
 	height: 4vh;
 }
 
-
-
-
 @media (max-width: 400px)  {
 	.landing-dogsImage {
 		grid-area: dogsImage;

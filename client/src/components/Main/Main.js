@@ -31,6 +31,9 @@ function Main() {
 	const navigateToPostBreed = () => {
 		navigate('/create')
 	}
+	const navigateToLanding = () => {
+		navigate('/')
+	}
 
 	////////////////////////////////////////////////////////////    REDUX STATES
 	let breeds = useSelector((state) => state.breeds)
@@ -73,15 +76,14 @@ function Main() {
 
 	return (
 		<div className='main-container'>
+			
+			<img onClick={navigateToLanding} className='main-homeImg' src={greenPaw} alt='ajndiawud'></img>
+		
+		<div className='main-functionalityrow'>
 			<div className='main-searchbar'>
 				<SearchByName setPage={setPage} />
 			</div>
-
-			<Link to='/'>
-				<img className='main-homeImg' src={greenPaw} alt='ajndiawud'></img>
-			</Link>
-
-			<div className='main-text-filter-temperament'>Select temperament:</div>
+			{/* FILTROS DE TEMPERAMENTO */}
 			<select
 				id='temperamentfilters'
 				className='main-filter-temperament'
@@ -93,12 +95,12 @@ function Main() {
 				{mappedTemperaments}
 			</select>
 
-			<div className='main-text-filter-general'>General filters:</div>
+				{/* ORDENAMIENTOS */}
 			<select
 				id='generalfilters'
 				className='main-filter-general'
 				onChange={(e) => dispatch(filtersActionFunction(e.target.value))}>
-				<option value='none'> Select a filter </option>
+				<option value='none'> Select order </option>
 				<option value={FILTER_BREEDS_MIN_WEIGHT}>By min weight</option>
 				<option value={FILTER_BREEDS_MAX_WEIGHT}>By max weight</option>
 				<option value={FILTER_BREEDS_A_TO_Z}>A - Z</option>
@@ -120,15 +122,16 @@ function Main() {
 				Create Breed
 			</button>
 
+	</div>
+			<div className='main-cards-renderer'>
+				{breeds.length > 0 || filteredBreeds.length > 0 ? renderer() : <LoadingComponent />}
+			</div>
 			<div className='main-pagination-buttons'>
 				{filteredBreeds.length > 0 ? (
 					<Pagination breeds={filteredBreeds} paginate={paginate} />
 				) : (
 					<Pagination breeds={breeds} paginate={paginate} />
 				)}
-			</div>
-			<div className='main-cards-renderer'>
-				{breeds.length > 0 || filteredBreeds.length > 0 ? renderer() : <LoadingComponent />}
 			</div>
 		</div>
 	)

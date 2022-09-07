@@ -21,7 +21,7 @@ function Card(props) {
 		temperamentsArr.push(<li key={Math.random()}>{'There are not temperaments for this breed'}</li>)
 	} else {
 		temperamentsArr = temperaments.map((t) => {
-			return <li key={t}>{t}</li>
+			return <li key={t}>{t.charAt(0).toUpperCase() + t.slice(1)}</li>
 		})
 	}
 
@@ -31,7 +31,7 @@ function Card(props) {
 			<div className='card-container' onClick={moveToDetailsOfTheBreed}>
 				<img src={image} alt='img' className='img' />
 				<div className='card-details'>
-					<b>{name}</b>
+					<b>{name.charAt(0).toUpperCase() + name.slice(1)}</b>
 					<ul>{temperamentsArr.slice(0, 4)}</ul>
 					<div>Weight: {weight} kg</div>
 				</div>

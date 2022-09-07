@@ -71,7 +71,7 @@ function CreateVideogame() {
 		return minheight > 0 ? (
 			<div className='correctInput'>Perfect</div>
 		) : (
-			<div className='error'>This should be a number greater than 0</div>
+			<div className='error'>Number greater than 0</div>
 		)
 	}
 	const validationheightMax = () => {
@@ -79,7 +79,7 @@ function CreateVideogame() {
 			<div className='correctInput'>Perfect</div>
 		) : (
 			<div className='error'>
-				This should be a number greater than 0, and it cant be lower than minimum height
+				It can't be lower than minimum height.
 			</div>
 		)
 	}
@@ -88,7 +88,7 @@ function CreateVideogame() {
 		return minweight > 0 ? (
 			<div className='correctInput'>Perfect</div>
 		) : (
-			<div className='error'>This should be a number greater than 0</div>
+			<div className='error'>Number greater than 0</div>
 		)
 	}
 	const validationweightMax = () => {
@@ -96,7 +96,7 @@ function CreateVideogame() {
 			<div className='correctInput'>Perfect</div>
 		) : (
 			<div className='error'>
-				This should be a number greater than 0, and it cant be lower than minimum weight
+				It can't be lower than minimum weight.
 			</div>
 		)
 	}
@@ -105,7 +105,7 @@ function CreateVideogame() {
 		return minLifeExpectancy > 0 ? (
 			<div className='correctInput'>Perfect</div>
 		) : (
-			<div className='error'>This should be a number greater than 0</div>
+			<div className='error'>Number greater than 0.</div>
 		)
 	}
 
@@ -114,7 +114,7 @@ function CreateVideogame() {
 			<div className='correctInput'>Perfect</div>
 		) : (
 			<div className='error'>
-				This should be a number greater than 0, and it cant be lower than minimum life span
+				It can't be lower than minimum life span.
 			</div>
 		)
 	}
@@ -205,11 +205,12 @@ function CreateVideogame() {
 					{validationImage(image)}
 				</div>
 
-				<h4 className='create-breed-titles localizationHeight'>Height</h4>
+				<h4 className='create-breed-titles localizationHeight'>Height <sub>cm</sub></h4>
 				<div className='localizationInputMinHeight'>
 					<input
 						className='inputCSS'
 						type='number'
+						min="0"
 						placeholder='Min height in cm'
 						onChange={(e) => {
 							setMinheight(Math.floor(e.target.value))
@@ -220,6 +221,7 @@ function CreateVideogame() {
 					<input
 						className='inputCSS'
 						type='number'
+						min="0"
 						placeholder='Max height in cm'
 						onChange={(e) => {
 							setMaxheight(Math.floor(e.target.value))
@@ -227,10 +229,11 @@ function CreateVideogame() {
 					{validationheightMax(maxheight)}
 				</div>
 
-				<h4 className='create-breed-titles localizationWeight'>Weight</h4>
+				<h4 className='create-breed-titles localizationWeight'>Weight <sub>kg</sub></h4>
 				<div className='localizationInputMinWeight'>
 					<input
 						type='number'
+						min="0"
 						className='inputCSS'
 						placeholder='Min weight in kg'
 						onChange={(e) => {
@@ -243,6 +246,7 @@ function CreateVideogame() {
 					<input
 						className='inputCSS'
 						type='number'
+						min="0"
 						placeholder='Max weight in kg'
 						onChange={(e) => {
 							setMaxweight(Math.floor(e.target.value))
@@ -250,11 +254,12 @@ function CreateVideogame() {
 					{validationweightMax(maxweight)}
 				</div>
 
-				<h4 className='create-breed-titles localizationLifeSpan'>Life span </h4>
+				<h4 className='create-breed-titles localizationLifeSpan'>Life span <sub>years</sub></h4>
 				<div className='localizationInputMinLifeSpan'>
 					<input
 						className='inputCSS'
 						type='number'
+						min="0"
 						placeholder='Min life in years'
 						onChange={(e) => {
 							setMinLifeExpectancy(Math.floor(e.target.value))
@@ -266,6 +271,7 @@ function CreateVideogame() {
 					<input
 						className='inputCSS'
 						type='number'
+						min="0"
 						placeholder='Max life in years'
 						onChange={(e) => {
 							setMaxLifeExpectancy(Math.floor(e.target.value))

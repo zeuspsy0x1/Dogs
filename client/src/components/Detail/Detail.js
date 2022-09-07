@@ -35,11 +35,11 @@ function Detail() {
 	let temperamentsArr = []
 
 	if (Array.isArray(breed.temperaments)) {
-		temperamentsArr = breed.temperaments?.map((t) => {
+		temperamentsArr = breed.temperaments.slice(0,8)?.map((t) => {
 			return <li key={t.toString()}>{t.charAt(0).toUpperCase() + t.slice(1)}</li>
 		})
 	} else {
-		temperamentsArr = <>No temperaments for this breed</>
+		temperamentsArr = <>No temperaments for the breed</>
 	}
 
 	let img = breed.image
@@ -57,22 +57,22 @@ function Detail() {
 			{Object.keys(breedById).length > 0 ? (
 				<div className='detail-container'>
 					<Link to='/main'>
-						<img className='main-homeImg' src={greenPaw} alt='ajndiawud'></img>
+						<img className='detail-main-homeImg' src={greenPaw} alt='ajndiawud'></img>
 					</Link>
 					<div className='detail-card-container'></div>
 
-					<div className='detail-title-text'> {breed.name}</div>
+					<div className='detail-title-text'> {breed.name.charAt(0).toUpperCase() + breed.name.slice(1)}</div>
 					<img src={img} alt='img not found' className='detail-card-img' />
-
-					<div className='detail-line'></div>
-					<div className='detail-breedDetails'>
-						<div>Height:    {breed.height} cm</div>
-						<div>Weight:   {breed.weight} kg</div>
-						<div>Life Span:  {breed.lifeExpectancy}</div>
+						<div className='detail-line'></div>
+							<div className='detail-breedDetails'>
+								<div>Height:    {breed.height} cm</div>
+								<div>Weight:   {breed.weight} kg</div>
+								<div>Life Span:  {breed.lifeExpectancy}</div>
+							</div>
+						<div className='detail-title-text-temperaments'>Temperaments:</div>
+						<ul className='detail-temperaments'>{temperamentsArr}</ul>
 					</div>
-					<div className='detail-title-text-temperaments'>Temperaments:</div>
-					<ul className='detail-temperaments'>{temperamentsArr}</ul>
-				</div>
+			
 			) : (
 				<LoadingComponent />
 			)}

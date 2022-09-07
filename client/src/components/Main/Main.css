@@ -5,30 +5,34 @@
 
 .main-container {
 	display: grid;
-	height: 100%;
-	grid-template-columns: 1fr 1fr 1fr repeat(3, 11%);
+	/* height: 100%; */
+	grid-template-columns: 1fr;
 	grid-template-rows: 5% 5% 85% 5%;
-	overflow: auto;
+	overflow: visible;
 }
 
 .main-homeImg {
 	grid-column: 1;
 	grid-row: 1/2;
-	height: 120px;
+	height: 110px;
 	width: 140px;
 	margin-top: 1%;
 	margin-left: 2%;
+	cursor: pointer;
 }
+
+
 .main-searchbar {
-	grid-column: 1/7;
+	grid-column: 1;
 	grid-row: 2/4;
 	display: flex;
 	justify-content: center;
-	margin-top: 4px;
+	margin-right: 1%;
+	margin-top: 0px;
 }
 
 .main-searchbar .search-input {
-	width: 175%;
+	width: 100%;
 	height: 40px;
 	border: 1px solid #ccc;
 	border-radius: 20px;
@@ -40,60 +44,40 @@
 	border-color: #bdf347;
 	border-width: 4px;
 	border-style: double;
-	margin-left: 10%;
+	margin-right: 1%;
 }
-
-.main-text-filter-temperament {
-	grid-column: 4;
-	grid-row: 1;
-	height: 100px;
-	color: #ffffff;
-	margin-top: 12%;
-}
-
-.main-text-filter-general {
-	grid-column: 5;
-	grid-row: 1;
-	height: 100px;
-	color: #ffffff;
-	margin-top: 12%;
-}
-
 .main-filter-temperament {
-	grid-column: 4;
+	grid-column: 1;
 	grid-row: 2;
-	height: 40px;
-	width: 180px;
-	margin-left: 0%;
-	margin-top: 2%;
 	background-color: #1d2549;
 	color: aliceblue;
 	font-weight: bold;
 	border-radius: 3%;
 	border-style: double;
 	border: 2px solid #bdf347;
+	height: 40px;
+	width: 180px;
+	margin-right: 1%;
+	margin-top: 0px;
 }
 .main-filter-general {
-	grid-column: 5;
+	grid-column: 1;
 	grid-row: 2;
 	height: 40px;
 	width: 180px;
-	margin-top: 2%;
-	margin-right: 0%;
 	background-color: #1d2549;
 	color: aliceblue;
 	font-weight: bold;
 	border-radius: 3%;
 	border-style: double;
 	border: 2px solid #bdf347;
+	margin-right: 1%;
+	margin-top: 0px;
 }
 
 .main-button-post-breed {
-	grid-column: 6;
+	grid-column: 1;
 	grid-row: 2;
-	margin-top: 40%;
-	margin-right: 0%;
-	margin-left: 10%;
 	background-color: #bdf347;
 	border: none;
 	border-radius: 5px;
@@ -102,17 +86,19 @@
 	font-weight: bold;
 	height: 2.6rem;
 	width: 6rem;
+	margin-top: 0%;
+	margin-right: 1%;
+	margin-left: 0%;
+	margin-top: 0px;
+	
 }
 .main-button-post-breed:hover {
 	box-shadow: 0 0 10px #bdf347;
 }
 
 .main-button-clear-filters {
-	grid-column: 6;
+	grid-column: 1;
 	grid-row: 2;
-	margin-top: 2%;
-	margin-right: 0%;
-	margin-left: 10%;
 	background-color: #bdf347;
 	border: none;
 	border-radius: 5px;
@@ -121,6 +107,10 @@
 	font-weight: bold;
 	height: 2.6rem;
 	width: 6rem;
+	margin-top: 0px;
+	margin-right: 1%;
+	margin-left: 0%;
+
 }
 .main-button-clear-filters:hover {
 	box-shadow: 0 0 10px #bdf347;
@@ -152,13 +142,14 @@ flex-wrap: wrap;
 	align-content: center;
       */
 .main-pagination-buttons {
-	grid-column: 1/7;
 	grid-row: 4;
-	max-width: 1fr;
-	margin-top: 5px;
-	margin-left: 210px;
 	height: 40px;
-	min-width: 100px;
+	margin-top: 0px;
+	margin-left: 0px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	text-align: center;
 }
 
 .pagination-buttons {
@@ -171,10 +162,66 @@ flex-wrap: wrap;
 	height: 26px;
 	max-width: 30px;
 	min-width: 30px;
-	margin-left: 5px;
 	border-radius: 45%;
+	margin-left: 0px;
 }
 
 .pagination-buttons:hover {
 	box-shadow: 0 0 15px #bdf347;
+}
+
+.main-functionalityrow{
+	grid-column: 1;
+	grid-row: 2;
+	display: flex;
+	justify-content: flex-end;
+	flex-wrap: wrap;
+	margin-top: 0px;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-bottom: 20px;
+}
+
+@media (max-width: 807px) {
+	.main-homeImg{
+		margin-top: 20px;
+		margin-left: 8px;
+		height: 50px;
+		width: 60px;
+	}
+	.main-functionalityrow{
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
+		margin-top: 20px;
+		margin-left: 20%;
+		margin-right: 20%;
+	}
+	.main-searchbar{
+		margin-top: 10px;
+	} 
+	.main-filter-temperament{
+		margin-top: 10px;
+	} 
+	.main-filter-general{
+		margin-top: 10px;
+	} 
+	.main-button-post-breed{
+		margin-top: 10px;
+	} 
+	.main-button-clear-filters{
+		margin-top: 10px;
+	}
+
+	.main-pagination-buttons{
+		margin-top: 10px;
+/* 		display: flex;
+		align-items: center;
+		justify-items: center; */
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
+
+	}
+
 }
