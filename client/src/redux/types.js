@@ -15,8 +15,8 @@ export const CLEAR_FILTERS = 'CLEAR_FILTERS'
 export const CLEAR_DETAILS = 'CLEAR_DETAILS'
 
 //LINKS TO BACKEND (REST PETITIONS)
-export const LINK_GET_BREEDS = 'http://localhost:5000/breeds'
-export const LINK_GET_BREED_BY_NAME = 'http://localhost:5000/breeds/name?name='
-export const LINK_GET_BREED_BY_ID = 'http://localhost:5000/breeds/'
-export const LINK_GET_TEMPERAMENTS = 'http://localhost:5000/temperaments'
-export const LINK_POST_BREED = 'http://localhost:5000/create'
+export const LINK_GET_BREEDS = 'https://dogs-production-0724.up.railway.app/breeds'
+export const LINK_GET_BREED_BY_NAME = 'https://dogs-production-0724.up.railway.app/breeds/name?name='
+export const LINK_GET_BREED_BY_ID = 'https://dogs-production-0724.up.railway.app/breeds/'
+export const LINK_GET_TEMPERAMENTS = 'https://dogs-production-0724.up.railway.app/temperaments'
+export const LINK_POST_BREED = 'https://dogs-production-0724.up.railway.app/create'

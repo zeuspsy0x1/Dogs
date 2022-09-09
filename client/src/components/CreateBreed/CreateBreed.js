@@ -157,7 +157,7 @@ function CreateVideogame() {
 			}
 
 			//console.log(JSON.stringify(videogame));
-			let post = await axios.post(`http://localhost:5000/create`, newBreed)
+			let post = await axios.post(`https://dogs-production-0724.up.railway.app/create`, newBreed)
 			console.log(post.data)
 
 			if (post.status === 200) {
