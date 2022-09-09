@@ -2,6 +2,7 @@
 import axios from 'axios'
 import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
+import Swal from 'sweetalert2'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
@@ -128,6 +129,16 @@ function CreateVideogame() {
 		return /^https?:\/\/.+\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url)
 	}
 
+	let alert=(error)=>{
+		Swal.fire({
+			text: error,
+			icon: 'error',
+			confirmButtonText: 'Continue'
+		  })
+		
+	}
+	//////////////////////////////////////////////////////////// RENDERER function
+
 	const validateInputsThenSubmitVideogame = async (e) => {
 		e.preventDefault()
 
@@ -161,14 +172,14 @@ function CreateVideogame() {
 			console.log(post.data)
 
 			if (post.status === 200) {
-				alert('Breed creation successfull')
+				alert('Breed creation successfull.')
 			} else if (post.status !== 200) {
 				alert(
-					'Breed creation failed, change the name of the videogame, there cant be duplicated breed names so maybe that was the problem'
+					"Breed creation failed, change the name of the breed."
 				)
 			}
 		} else {
-			alert('Please fill all the inputs with correct data')
+			alert('Please fill all the inputs with correct data.')
 		}
 	}
 

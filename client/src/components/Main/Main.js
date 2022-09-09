@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+//import { Link } from 'react-router-dom'
+import Swal from 'sweetalert2'
 import Pagination from './Pagination'
 import AllBreeds from './AllBreeds'
 import SearchByName from './SearchByName'
@@ -52,13 +53,23 @@ function Main() {
 	const paginate = (number) => {
 		setPage(number)
 	}
+	let alert=(error)=>{
+		Swal.fire({
+			text: error,
+			icon: 'error',
+			confirmButtonText: 'Continue'
+		  })
+		
+		dispatch(getAllBreeds()) 
+		
+	}
 	//////////////////////////////////////////////////////////// RENDERER function
 	let renderer = () => {
 		if (breeds[0] === 'no dog' || breeds === undefined) {
-			return <div className='error'>There are 0 breeds by that name</div>
+			return alert('There are 0 breeds by that name.')
 		}
 		if (filteredBreeds[0] === 'created is 0') {
-			return <div>There is nothing to show by that filter</div>
+			return alert('There is nothing to show by that filter.')
 		}
 		if (filteredBreeds.length > 0) {
 			let currentItems = filteredBreeds.slice(indexOfFirstItem, indexOfLastItem)
