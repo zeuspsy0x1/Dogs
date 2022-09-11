@@ -134,15 +134,15 @@ function Main() {
 			</button>
 
 	</div>
-			<div className='main-cards-renderer'>
-				{breeds.length > 0 || filteredBreeds.length > 0 ? renderer() : <LoadingComponent />}
-			</div>
 			<div className='main-pagination-buttons'>
 				{filteredBreeds.length > 0 ? (
 					<Pagination breeds={filteredBreeds} paginate={paginate} />
 				) : (
 					<Pagination breeds={breeds} paginate={paginate} />
 				)}
+			</div>
+			<div className='main-cards-renderer'>
+				{breeds.length > 0 || filteredBreeds.length > 0 ? renderer() : <LoadingComponent />}
 			</div>
 		</div>
 	)
