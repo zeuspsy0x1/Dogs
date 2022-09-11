@@ -62,7 +62,7 @@ function Detail() {
 					<div className='detail-card-container'></div>
 
 					<div className='detail-title-text'> {breed.name.charAt(0).toUpperCase() + breed.name.slice(1)}</div>
-					<img src={img} alt='img not found' className='detail-card-img' />
+					<img src={img} alt='img not found' className='detail-card-img'  />
 						<div className='detail-line'></div>
 							<div className='detail-breedDetails'>
 								<div>Height:    {breed.height} cm</div>

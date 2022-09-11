@@ -57,7 +57,7 @@ body {
 	grid-row: 3/6;
 	place-self: center;
 	margin-bottom: 20%;
-	border-radius: 9%;
+	/* border-radius: 9%; */
 	/* border: #bdf347b0;
 	border-width: 3px;
 	border-style: groove; */
@@ -65,7 +65,7 @@ body {
 	max-width: 70%; */
 	height: 76%;
 	width: 86%;
-	object-fit: cover;
+	object-fit: scale-down;
 }
 .detail-breedDetails {
 	font-weight: bold;
@@ -141,16 +141,17 @@ body {
 		grid-column: 1/7;
 		grid-row: 3/5;
 		place-self: center;
-		margin-bottom: 10%;
-		border-radius: 8%;
+		margin-top: 10px;
+		margin-bottom: 30px;
+		object-fit: scale-down;
+		/* border-radius: 8%; */
 		/* border: #bdf347b0;
 		border-width: 3px;
 		border-style: groove; */
 		/* max-height: 80%; */
-		max-width: 290px;
-		height: 95%;
-		width: 80%;
-		object-fit: cover;
+
+		max-height: 100%;
+		max-width: 96%;
 	}
 	.detail-breedDetails {
 		grid-column: 2/5;

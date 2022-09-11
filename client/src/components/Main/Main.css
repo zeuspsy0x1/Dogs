@@ -227,7 +227,9 @@ flex-wrap: wrap;
 		display: flex;
 		justify-content: center;
 		flex-wrap: wrap;
-
+	}
+	.main-cards-renderer {
+		margin-top: 15px;
 	}
 
 }
