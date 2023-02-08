@@ -8,10 +8,10 @@ import github from '../../utils/github.PNG'
 function LandingPage() {
 	const navigate = useNavigate()
 	const navigateToMain = () => {
+		/* Hace fullscreen la pagina y luego manda a main */
+		document.body.requestFullscreen()
 		navigate('/main')
 	}
-
-	
 
 	return (
 		<div className='landing-container'>
